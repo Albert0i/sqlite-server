@@ -154,6 +154,7 @@ Content-Type: application/json
 
 
 ### IV. Summary 
+SRunner is <em>miniature</em> version of YRunner. Both of them employ [Facade Pattern](https://www.tutorialspoint.com/design_pattern/facade_pattern.htm) to wrap up the dirty works to convert between JSON and SQL behind the scenes. 
 
 
 ### V. Reference
@@ -164,9 +165,7 @@ Content-Type: application/json
 
 
 ### Epilogue 
-```
-
-```
+![alt screenshot](img/Screenshot%202023-05-01%2011.31.02%20AM.png)
 
 
 ### EOF (2023/05/01)
