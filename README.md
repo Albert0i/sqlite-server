@@ -13,7 +13,13 @@ The cat and the fiddle.
 
 
 ### I. Project setup
+.env
 ```
+SERVER_PORT=8989
+
+PASSPHRASE=VEUdEii4n7nCvofaBRJEC
+
+DELAY404=10000
 ```
 
 
