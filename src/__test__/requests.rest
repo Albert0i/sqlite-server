@@ -73,7 +73,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 ### Update one
-PATCH http://localhost:8989/api/v1/sr/people/25?_keyname=person_id
+PATCH http://localhost:8989/api/v1/sr/people/33?_keyname=person_id
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -83,7 +83,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 ### Delete one 
-DELETE http://localhost:8989/api/v1/sr/people/32?_keyname=person_id
+DELETE http://localhost:8989/api/v1/sr/people/33?_keyname=person_id
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
