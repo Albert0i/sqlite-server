@@ -10,6 +10,7 @@ The cat and the fiddle.
 
 
 ### Prologue 
+I love [SQLite](https://www.sqlite.org/index.html), I love [json-server](https://www.npmjs.com/package/json-server), I love everything simple and small.. Alas! my business can not do without SQL, as you may know, Servers for SQL tends to be enormous and monolithic. While questing for a full-fledged API gateway to Oracle Database. I was obliged to implement a small cache module. Without second thought, I choose SQLite, I have worked with [SQLite Client for Node.js Apps](https://github.com/kriasoft/node-sqlite#readme) and [better-sqlite3](https://github.com/WiseLibs/better-sqlite3). The former is complicated but with better error reporting, the later is simpler and performant. 
 
 
 ### I. Project setup
