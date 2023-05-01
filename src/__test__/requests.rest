@@ -1,4 +1,4 @@
-### YRunner Direct
+### SRunner Direct
 
 ### runSelectSQL
 POST http://localhost:8989/api/v1/sr/runselectsql
@@ -44,7 +44,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 
-### YRunner RESTful
+### SRunner RESTful
 
 ### Get all 
 GET http://localhost:8989/api/v1/sr/people
