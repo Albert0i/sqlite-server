@@ -161,11 +161,13 @@ SRunner is <em>miniature</em> version of YRunner. Both of them employ [Facade Pa
 1. [SQLite](https://www.sqlite.org/index.html)
 2. [better-sqlite3](https://www.npmjs.com/package/better-sqlite3)
 3. [SQLite AUTOINCREMENT](https://www.sqlitetutorial.net/sqlite-autoincrement/?fbclid=IwAR1AB4yZ3aD88jcKjsq0svhpjFXBX3EAw4huYZFDhGVxqhTU-XelPKlx0-M)
-4. [Diddling Considered as one of the Exact Sciences](https://poemuseum.org/diddling-considered-as-one-of-the-exact-sciences/)
+4 [PM2 | CLUSTER MODE](https://pm2.keymetrics.io/docs/usage/cluster-mode/)
+5. [Diddling Considered as one of the Exact Sciences](https://poemuseum.org/diddling-considered-as-one-of-the-exact-sciences/)
 
 
 ### Epilogue 
-![alt screenshot](img/Screenshot%202023-05-01%2011.31.02%20AM.png)
+![alt screenshot1](img/Screenshot%202023-05-01%2011.31.02%20AM.png)
+![alt screenshot2](img/Screenshot%202023-05-06%2010.56.47%20AM.png)
+![alt screenshot3](img/Screenshot%202023-05-06%2010.57.41%20AM.png)
 
-
-### EOF (2023/05/01)
+### EOF (2023/05/06)

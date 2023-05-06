@@ -33,6 +33,19 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
       ]
 }
 
+### runSQL (single step)
+POST http://localhost:8989/api/v1/sr/runsql?_singleStep=true
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{
+  "cmdTexts": [
+      "INSERT INTO people (first_name,last_name) VALUES('First1','Last1')",
+      "INSERT INTO people (first_name,last_name) VALUES('First2','Last2')",
+      "INSERT INTO people (first_name,last_name) VALUES('First3','Last3')"
+      ]
+}
+
 ### runInsertSQLYieldRowID
 POST http://localhost:8989/api/v1/sr/runinsertsqlyieldrowid
 Content-Type: application/json

@@ -14,25 +14,27 @@ const url = require('url');
 router.post('/runselectsql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = runSelectSQL(req.body.cmdText, req.body.lowerKeys)
 
-    res.status(result.success ? 200 : 400).json(result)
+    res.status(result.success ? 200 : 400).json({...result, pm_id: process.env.pm_id})
 })
 
 router.post('/runvaluesql', verifyPassphrase, verifyCmdText, async (req, res) => {
     const result = runValueSQL(req.body.cmdText, req.body.lowerKeys)
 
-    res.status(result.success ? 200 : 400).json(result)
+    res.status(result.success ? 200 : 400).json({...result, pm_id: process.env.pm_id})
 })
 
 router.post('/runsql', verifyPassphrase, verifyCmdTextArray, async (req, res) => {
-    const result = runSQL(req.body.cmdTexts)
-
-    res.status(result.success ? 200 : 400).json(result)
+    const query = url.parse(req.url,true).query
+    const _singleStep = query._singleStep
+    const result = runSQL(req.body.cmdTexts, _singleStep)
+    
+    res.status(result.success ? 200 : 400).json({...result, pm_id: process.env.pm_id})
 })
 
 router.post('/runinsertsqlyieldrowid', verifyPassphrase, verifyCmdTextInsert, async (req, res) => {
     const result = runInsertSQLYieldRowID(req.body.cmdText, req.body.id)
 
-    res.status(result.success ? 201 : 400).json(result)
+    res.status(result.success ? 201 : 400).json({...result, pm_id: process.env.pm_id})
 })
 
 /*
@@ -60,7 +62,7 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
 
     const result = runSelectSQL(cmdText, _lowerKeys)
 
-    res.status(result.success ? 200 : 400).json({cmdText, ...result})
+    res.status(result.success ? 200 : 400).json({cmdText, ...result, pm_id: process.env.pm_id})
 })
 
 // Get one 
@@ -81,7 +83,8 @@ router.get('/:table/:key', verifyPassphrase, async (req, res) => {
     res.status(result.success ? 200 : 400).json({
         cmdText, 
         success: result.success, 
-        row: (result.rows[0] ? result.rows[0] : null)
+        row: (result.rows[0] ? result.rows[0] : null),
+        pm_id: process.env.pm_id
     })
 })
 
@@ -106,7 +109,7 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
 
     const result = runInsertSQLYieldRowID(cmdText)
 
-    res.status(result.success ? 201 : 400).json({cmdText, ...result})
+    res.status(result.success ? 201 : 400).json({cmdText, ...result, pm_id: process.env.pm_id})
 })
 
 // Update one
@@ -130,7 +133,7 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
 
     const result = runInsertSQLYieldRowID(cmdText)
 
-    res.status(result.success ? 200 : 400).json({cmdText, ...result})
+    res.status(result.success ? 200 : 400).json({cmdText, ...result, pm_id: process.env.pm_id})
 })
 
 // Delete one 
@@ -147,7 +150,7 @@ router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
 
     const result = runInsertSQLYieldRowID(cmdText)
 
-    res.status(result.success ? 200 : 400).json({cmdText, ...result})
+    res.status(result.success ? 200 : 400).json({cmdText, ...result, pm_id: process.env.pm_id})
 })
 
 router.all('/*', handle404)

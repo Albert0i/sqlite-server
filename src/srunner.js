@@ -54,15 +54,35 @@ const runValueSQL = (cmdText, lowerKeys=false) => {
 }
 
 // Run multiple SQL Statements
-const runSQL = (cmdTextArray) => {
-    try {
-        const result = db.exec(cmdTextArray.join(';'))
+const runSQL = (cmdTextArray, singleStep=false) => {
+    let result = null
+    let rowsAffected = 0 
 
-        return { success: true, result }   
-    } catch (err) {
-        return { success: false, error: err }
-
-    }
+    if (singleStep) console.log('> srunner.runSQL:singleStep is true')
+        if (singleStep) {            
+            for (i=0; i<cmdTextArray.length; i++) 
+                try {
+                    if (cmdTextArray[i].trim().length !==0) {
+                        result = db.prepare(cmdTextArray[i]).run()
+                        rowsAffected += result.changes                        
+                    }
+                } catch (err) 
+                {
+                    console.log(err)
+                    console.log(`> srunner.runSQL:cmdTextArray[${i}]="${cmdTextArray[i].trim()}"`)
+                    return { success: false, error: err }    
+                } 
+            return { success: true, rowsAffected }    
+        } else {
+            try {
+                result = db.exec(cmdTextArray.join(';'))
+                return { success: true, result }   
+            }
+            catch (err) {
+                console.log(err)
+                return { success: false, error: err }
+            }
+        }
 }
 
 // Run SQL Insert Statement and return the auto increment row id
@@ -86,24 +106,14 @@ const logger = (cmdText) => {
 module.exports = { openDb, runSelectSQL, runValueSQL, runSQL, runInsertSQLYieldRowID } 
 
 /*
-   better-sqlite3
-   https://www.npmjs.com/package/better-sqlite3
-
-   create table cache (
-        tabname char(40),
-        crtdate numeric(8, 0),
-        crttime numeric(6,0),
-        primary key (tabname)
+   CREATE TABLE people (
+        person_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        first_name text NOT NULL,
+        last_name text NOT NULL
    );
-   CREATE TABLE CACHE (
-        TABNAME CHAR(40),
-        CRTDATE NUMERIC(8, 0),
-        CRTTIME NUMERIC(6,0),
-        CONSTRAINT CACHE_PK PRIMARY KEY (TABNAME)
-   );
-   insert into cache values('table1', 1, 2);
-   insert into cache values('table2', 3, 4);
-   insert into cache values('table3', 5, 6);
-   insert into cache values('table4', 7, 8);
-   insert into cache values('table5', 9, 10);
+   INSERT INTO people (first_name,last_name) VALUES('John','Smith');
+   INSERT INTO people (first_name,last_name) VALUES('William','Wilson');
+   INSERT INTO people (first_name,last_name) VALUES('Ian','Murdok');
+   INSERT INTO people (first_name,last_name) VALUES('Peter','Pan');
+   INSERT INTO people (first_name,last_name) VALUES('Allison','Duvar');
 */

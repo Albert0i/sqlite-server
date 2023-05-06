@@ -26,7 +26,8 @@ app.use('/api/v1/sr', srunnerRoute)
 app.all('/*', handle404)
 
 app.listen(process.env.SERVER_PORT, () => {
-    console.log(`Server started on ${process.env.SERVER_PORT}...`)    
+    console.log(`Server started on ${process.env.SERVER_PORT}`, 
+                  process.env.pm_id? `, instance id is ${process.env.pm_id}`:'')    
     openDb(path.join(__dirname, 'data', 'db.sqlite'))
 })
 

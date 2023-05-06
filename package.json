@@ -5,7 +5,17 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server",
-    "sqlite":"sqlite3 src/data/db.sqlite"
+    "sqlite":"sqlite3 src/data/db.sqlite",
+    "api": "pm2 start ecosystem.config.js", 
+    "list": "pm2 list", 
+    "logs": "pm2 logs api-gateway --lines 90", 
+    "flush": "pm2 flush",
+    "scale1": "pm2 scale api-gateway 1",
+    "scale2": "pm2 scale api-gateway 2",
+    "scale4": "pm2 scale api-gateway 4",
+    "restart": "pm2 restart api-gateway",
+    "stop": "pm2 stop api-gateway",
+    "delete": "pm2 delete api-gateway"
   },
   "repository": {
     "type": "git",
