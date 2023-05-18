@@ -1,0 +1,106 @@
+### SRunner Direct
+
+### runSelectSQL
+POST https://sqlite-server.onrender.com/api/v1/sr/runselectsql
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{
+  "cmdText": "select * from people",
+  "lowerKeys": true
+}
+
+### runValueSQL
+POST https://sqlite-server.onrender.com/api/v1/sr/runvaluesql
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{
+  "cmdText": "select * from people where first_name = 'Ian'",
+  "lowerKeys": true
+}
+
+### runSQL
+POST https://sqlite-server.onrender.com/api/v1/sr/runsql
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{
+  "cmdTexts": [
+      "INSERT INTO people (first_name,last_name) VALUES('First1','Last1')",
+      "INSERT INTO people (first_name,last_name) VALUES('First2','Last2')",
+      "INSERT INTO people (first_name,last_name) VALUES('First3','Last3')"
+      ]
+}
+
+### runSQL (single step)
+POST https://sqlite-server.onrender.com/api/v1/sr/runsql?_singleStep=true
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{
+  "cmdTexts": [
+      "INSERT INTO people (first_name,last_name) VALUES('First1','Last1')",
+      "INSERT INTO people (first_name,last_name) VALUES('First2','Last2')",
+      "INSERT INTO people (first_name,last_name) VALUES('First3','Last3')"
+      ]
+}
+
+### runInsertSQLYieldRowID
+POST https://sqlite-server.onrender.com/api/v1/sr/runinsertsqlyieldrowid
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{
+  "cmdText": "INSERT INTO people (first_name,last_name) VALUES('First4','Last4')",
+  "id": "person_id"
+}
+
+
+### SRunner RESTful
+
+### Get all 
+GET https://sqlite-server.onrender.com/api/v1/sr/people
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+### Get all with options 
+GET https://sqlite-server.onrender.com/api/v1/sr/people?_filter=person_id>3&_sort=first_name&_order=asc&_offset=5&_limit=5&_lowerKeys=true
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+### Get one
+
+GET https://sqlite-server.onrender.com/api/v1/sr/people/12?_keyname=person_id&_lowerKeys=true
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+### Create one 
+POST https://sqlite-server.onrender.com/api/v1/sr/people
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{ 
+    "first_name" : "First5",
+    "last_name" : "Last5"
+}
+
+### Update one
+PATCH https://sqlite-server.onrender.com/api/v1/sr/people/13?_keyname=person_id
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+{ 
+    "first_name" : "IAN",
+    "last_name" : "MURDOK"
+}
+
+### Delete one 
+DELETE https://sqlite-server.onrender.com/api/v1/sr/people/13?_keyname=person_id
+Content-Type: application/json
+Authorization: Bearer VEUdEii4n7nCvofaBRJEC
+
+# 
+# REST Client for Visual Studio Code
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+#
