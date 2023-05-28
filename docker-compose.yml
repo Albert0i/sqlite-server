@@ -1,0 +1,34 @@
+version: "3"
+services:
+
+  nginx:
+    image: 
+      ${NGINX_IMAGE_NAME}:${NGINX_IMAGE_VERSION}
+    container_name: 
+        nginx 
+    ports:
+      - "8989:8989"
+    volumes:
+      - ${NGINX_CONF_DIR}:/etc/nginx
+    depends_on:
+      - sqlite-server 
+
+  sqlite-server:
+    build: 
+      context: .
+    image: 
+      ${IMAGE_NAME}:${IMAGE_VERSION}
+    volumes:
+      - ${DATA_DIR}:/app/data
+    env_file: .env
+
+
+#
+# buiid:  
+# docker-compose build
+# 
+# run: 
+# docker run --name api --rm -p 8989:8989 -v data:/app/data --env-file .env -d albert0i/sqlite-server:1.0
+#
+# EOF (2023/05/29)
+#
