@@ -65,13 +65,13 @@ Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 ### Get all with options 
-GET http://localhost:8989/api/v1/sr/people?_filter=person_id>3&_sort=first_name&_order=asc&_offset=5&_limit=5&_lowerKeys=true
+GET http://localhost:8989/api/v1/sr/people?_filter=person_id>3&_sort=first_name&_order=asc&_offset=2&_limit=3&_lowerKeys=true
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
 ### Get one
 
-GET http://localhost:8989/api/v1/sr/people/25?_keyname=person_id&_lowerKeys=true
+GET http://localhost:8989/api/v1/sr/people/6?_keyname=person_id&_lowerKeys=true
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -86,7 +86,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 ### Update one
-PATCH http://localhost:8989/api/v1/sr/people/33?_keyname=person_id
+PATCH http://localhost:8989/api/v1/sr/people/6?_keyname=person_id
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
@@ -96,7 +96,7 @@ Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 }
 
 ### Delete one 
-DELETE http://localhost:8989/api/v1/sr/people/33?_keyname=person_id
+DELETE http://localhost:8989/api/v1/sr/people/6?_keyname=person_id
 Content-Type: application/json
 Authorization: Bearer VEUdEii4n7nCvofaBRJEC
 
