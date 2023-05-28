@@ -20,6 +20,7 @@ services:
       ${IMAGE_NAME}:${IMAGE_VERSION}
     volumes:
       - ${DATA_DIR}:/app/data
+      - ${LOG_DIR}:/app/logs
     env_file: .env
 
 
