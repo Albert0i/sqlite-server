@@ -201,7 +201,9 @@ DB_PATH=src/data/db.sqlite
 
 5. Simplify API entry point `/api/v1/sr` to `/api/v1`
 
-6. Add system information route
+6. Remove `_lowerkeys` query option
+
+7. Add system information route
 ```
 GET http://localhost:8989/api/v1
 ```

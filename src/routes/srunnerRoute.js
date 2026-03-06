@@ -74,7 +74,8 @@ router.get('/:table', async (req, res) => {
     const _order = query._order
     const _offset = query._offset
     const _limit = query._limit
-    const _lowerKeys = query._lowerKeys
+    const _lowerkeys = query._lowerkeys
+    
     const cmdText = `SELECT * FROM ${table} ` +
                      (query._filter? `WHERE ${_filter} ` : ' ') + 
                      (query._sort? `ORDER BY ${_sort} ` : ' ') +
@@ -85,7 +86,7 @@ router.get('/:table', async (req, res) => {
     if (query._norun)
         return res.status(200).json({cmdText})
 
-    const result = runSelectSQL(cmdText, _lowerKeys)
+    const result = runSelectSQL(cmdText, _lowerkeys)
 
     res.status(result.success ? 200 : 400).json({cmdText, ...result, pm_id: process.env.pm_id})
 })

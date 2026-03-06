@@ -11,7 +11,7 @@ export const lowerObjKey = (obj) => {
 
 export const lowerObjKeyArray = (objs) => {
     let newObjArray = []
-    for (i=0; i< objs.length; i++)
+    for (let i=0; i< objs.length; i++)
         newObjArray.push(lowerObjKey(objs[i]))
     return newObjArray
 }

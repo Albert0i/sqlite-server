@@ -1,6 +1,6 @@
 import 'dotenv/config' 
 import Database from 'better-sqlite3'
-import { lowerObjKey, lowerObjKeyArray } from './utils/lowerKeys.js'
+//import { lowerObjKey, lowerObjKeyArray } from './utils/lowerKeys.js'
 
 let db = null; 
 
@@ -23,32 +23,22 @@ export const openDb = (filename='db.sqlite', options={verbose: logger}) => {
 }
 
 // Run SQL Statement and return a data table
-export const runSelectSQL = (cmdText, lowerKeys=false) => {
+export const runSelectSQL = (cmdText) => {
     try {
         const result = db.prepare(cmdText).all()
-        if (lowerKeys)
-        {
-            const newResult = lowerObjKeyArray(result)
-            return { success: true, rows: newResult }  
-        }
-        else
-            return { success: true, rows: result } 
+  
+        return { success: true, rows: result } 
     } catch (err) {
         return { success: false, error: err }
     }
 }
 
 // Run SQL Statement and return a value
-export const runValueSQL = (cmdText, lowerKeys=false) => {
+export const runValueSQL = (cmdText) => {
     try {
         const result = db.prepare(cmdText).get()
-        if (lowerKeys)
-        {
-            const newResult = lowerObjKey(result)
-            return { success: true, ...newResult }  
-        }
-        else
-            return { success: true, ...result }
+        
+        return { success: true, ...result }
     } catch (err) {
         return { success: false, error: err }
     }
