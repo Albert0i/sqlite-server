@@ -172,6 +172,8 @@ SRunner is <em>miniature</em> version of YRunner. Both of them employ [Facade Pa
 
 
 ### Revision 2026
+Ask AI, ie. [copilot](https://copilot.microsoft.com/) for help. 
+
 1. Update packages
 ```
 npm install better-sqlite3@latest

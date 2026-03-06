@@ -41,17 +41,7 @@ router.post('/runinsertsqlyieldrowid', verifyCmdTextInsert, async (req, res) => 
 /*
    SRunner RESTful
 */
-// SELECT sqlite_version();
-// SELECT count(*) FROM sqlite_master WHERE type='table';
-// SELECT count(*) FROM sqlite_master WHERE type='index';
-/*
--- Disk size in bytes, MB, and GB
-SELECT 
-    (page_count * page_size) AS size_bytes,
-    ROUND((page_count * page_size) / 1024.0 / 1024.0, 2) AS size_mb,
-    ROUND((page_count * page_size) / 1024.0 / 1024.0 / 1024.0, 2) AS size_gb
-FROM pragma_page_count(), pragma_page_size();
-*/
+// System info
 router.get('/', async (req, res) => {
     const sqliteVersion = runSelectSQL('SELECT sqlite_version();')
     const numberOfTables = runSelectSQL("SELECT count(*) FROM sqlite_master WHERE type='table';")
