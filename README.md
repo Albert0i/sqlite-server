@@ -170,4 +170,24 @@ SRunner is <em>miniature</em> version of YRunner. Both of them employ [Facade Pa
 ![alt screenshot2](img/Screenshot%202023-05-06%2010.56.47%20AM.png)
 ![alt screenshot3](img/Screenshot%202023-05-06%2010.57.41%20AM.png)
 
+
+### Revision 2026
+1. Update packages
+```
+npm install better-sqlite3@latest
+npm install cors@latest
+npm install dotenv@latest
+npm install express@latest
+npm install morgan@latest
+npm install rotating-file-stream3@latest
+```
+
+2. Change to ES6 Module syntax
+
+3. Remove `verifyPassphrase` on routes
+
+4. Add database location `DB_PATH` to `.env` 
+
+
+### EOF (2026/03/13)
 ### EOF (2023/05/06)
