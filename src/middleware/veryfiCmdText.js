@@ -1,4 +1,4 @@
-const verifyCmdText = (req, res, next) => {
+export const verifyCmdText = (req, res, next) => {
     const cmdText = req.body.cmdText
 
     if (typeof cmdText !== 'string')
@@ -9,5 +9,3 @@ const verifyCmdText = (req, res, next) => {
 
     next()
 }
-
-module.exports = verifyCmdText 

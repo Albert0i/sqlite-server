@@ -1,29 +1,30 @@
-const express = require('express')
-const router = express.Router()
-const verifyPassphrase = require('../middleware/verifyPassphrase')
-const verifyCmdText = require('../middleware/veryfiCmdText')
-const verifyCmdTextArray = require('../middleware/verifyCmdTextArray')
-const verifyCmdTextInsert = require('../middleware/veryfiCmdTextInsert')
-const { runSQL, runValueSQL, runSelectSQL, runInsertSQLYieldRowID } = require('../srunner')
-const { handle404 } = require('../middleware/handle404')
-const url = require('url');
+import express from 'express'
+//import {verifyPassphrase} from '../middleware/verifyPassphrase.js'
+import {verifyCmdText} from '../middleware/veryfiCmdText.js'
+import {verifyCmdTextArray} from '../middleware/verifyCmdTextArray.js'
+import {verifyCmdTextInsert} from '../middleware/veryfiCmdTextInsert.js'
+import { runSQL, runValueSQL, runSelectSQL, runInsertSQLYieldRowID } from '../srunner.js'
+import { handle404 } from '../middleware/handle404.js'
+import  url from 'url';
+
+export const router = express.Router()
 
 /*
    SRunner Direct 
 */
-router.post('/runselectsql', verifyPassphrase, verifyCmdText, async (req, res) => {
+router.post('/runselectsql', verifyCmdText, async (req, res) => {
     const result = runSelectSQL(req.body.cmdText, req.body.lowerKeys)
 
     res.status(result.success ? 200 : 400).json({...result, pm_id: process.env.pm_id})
 })
 
-router.post('/runvaluesql', verifyPassphrase, verifyCmdText, async (req, res) => {
+router.post('/runvaluesql', verifyCmdText, async (req, res) => {
     const result = runValueSQL(req.body.cmdText, req.body.lowerKeys)
 
     res.status(result.success ? 200 : 400).json({...result, pm_id: process.env.pm_id})
 })
 
-router.post('/runsql', verifyPassphrase, verifyCmdTextArray, async (req, res) => {
+router.post('/runsql', verifyCmdTextArray, async (req, res) => {
     const query = url.parse(req.url,true).query
     const _singleStep = query._singleStep
     const result = runSQL(req.body.cmdTexts, _singleStep)
@@ -31,7 +32,7 @@ router.post('/runsql', verifyPassphrase, verifyCmdTextArray, async (req, res) =>
     res.status(result.success ? 200 : 400).json({...result, pm_id: process.env.pm_id})
 })
 
-router.post('/runinsertsqlyieldrowid', verifyPassphrase, verifyCmdTextInsert, async (req, res) => {
+router.post('/runinsertsqlyieldrowid', verifyCmdTextInsert, async (req, res) => {
     const result = runInsertSQLYieldRowID(req.body.cmdText, req.body.id)
 
     res.status(result.success ? 201 : 400).json({...result, pm_id: process.env.pm_id})
@@ -40,8 +41,37 @@ router.post('/runinsertsqlyieldrowid', verifyPassphrase, verifyCmdTextInsert, as
 /*
    SRunner RESTful
 */
+// SELECT sqlite_version();
+// SELECT count(*) FROM sqlite_master WHERE type='table';
+// SELECT count(*) FROM sqlite_master WHERE type='index';
+/*
+-- Disk size in bytes, MB, and GB
+SELECT 
+    (page_count * page_size) AS size_bytes,
+    ROUND((page_count * page_size) / 1024.0 / 1024.0, 2) AS size_mb,
+    ROUND((page_count * page_size) / 1024.0 / 1024.0 / 1024.0, 2) AS size_gb
+FROM pragma_page_count(), pragma_page_size();
+*/
+router.get('/', async (req, res) => {
+    const sqliteVersion = runSelectSQL('SELECT sqlite_version();')
+    const numberOfTables = runSelectSQL("SELECT count(*) FROM sqlite_master WHERE type='table';")
+    const numberOfIndexes = runSelectSQL("SELECT count(*) FROM sqlite_master WHERE type='index';")
+    const diskSizeInG = runSelectSQL(`
+        SELECT             
+            ROUND((page_count * page_size) / 1024.0 / 1024.0 / 1024.0, 2) AS size_gb
+        FROM pragma_page_count(), pragma_page_size();
+        `)
+
+    res.json({ 
+                'Database ': process.env.DB_PATH, 
+                'SQLite Version': sqliteVersion.rows[0]["sqlite_version()"], 
+                'Number of tables': numberOfTables.rows[0]["count(*)"], 
+                'Number of indexes': numberOfIndexes.rows[0]["count(*)"], 
+                "Disk Size (GB)" : diskSizeInG.rows[0]["size_gb"] })
+})
+
 // Get all 
-router.get('/:table', verifyPassphrase, async (req, res) => {
+router.get('/:table', async (req, res) => {
     const table = req.params.table
     const query = url.parse(req.url,true).query
     const _filter = query._filter
@@ -66,7 +96,7 @@ router.get('/:table', verifyPassphrase, async (req, res) => {
 })
 
 // Get one 
-router.get('/:table/:key', verifyPassphrase, async (req, res) => {
+router.get('/:table/:key', async (req, res) => {
     const table = req.params.table
     const query = url.parse(req.url,true).query    
     const _keyname = query._keyname || "id"
@@ -89,7 +119,7 @@ router.get('/:table/:key', verifyPassphrase, async (req, res) => {
 })
 
 // Create one
-router.post('/:table', verifyPassphrase, async (req, res) => {
+router.post('/:table', async (req, res) => {
     const table = req.params.table.toLowerCase()
     const query = url.parse(req.url,true).query
     let fieldList = ''
@@ -113,7 +143,7 @@ router.post('/:table', verifyPassphrase, async (req, res) => {
 })
 
 // Update one
-router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
+router.patch('/:table/:key', async (req, res) => {
     const table = req.params.table.toLowerCase()
     const query = url.parse(req.url,true).query    
     const _keyname = query._keyname || "id" 
@@ -137,7 +167,7 @@ router.patch('/:table/:key', verifyPassphrase, async (req, res) => {
 })
 
 // Delete one 
-router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
+router.delete('/:table/:key', async (req, res) => {
     const table = req.params.table.toLowerCase()
     const query = url.parse(req.url,true).query    
     const _keyname = query._keyname || "id" 
@@ -153,9 +183,7 @@ router.delete('/:table/:key', verifyPassphrase, async (req, res) => {
     res.status(result.success ? 200 : 400).json({cmdText, ...result, pm_id: process.env.pm_id})
 })
 
-router.all('/*', handle404)
-
-module.exports = { router } 
+router.use(handle404);  
 
 /*
    node.js get url query params from http request

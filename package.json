@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon src/server",
-    "sqlite": "sqlite3 src/data/db.sqlite",
+    "sql": "sqlite3 H:/PHLIB.db",
     "api": "pm2 start ecosystem.config.js",
     "list": "pm2 list",
     "logs": "pm2 logs api-gateway --lines 90",
@@ -29,11 +30,11 @@
   },
   "homepage": "https://github.com/Albert0i/sqlite-server#readme",
   "dependencies": {
-    "better-sqlite3": "^8.3.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "morgan": "^1.10.0",
-    "rotating-file-stream": "^3.1.0"
+    "better-sqlite3": "^12.6.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "morgan": "^1.10.1",
+    "rotating-file-stream": "^3.2.9"
   }
 }

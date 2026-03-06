@@ -1,4 +1,4 @@
-const verifyPassphrase = (req, res, next) => {
+export const verifyPassphrase = (req, res, next) => {
     const authHeader = req.headers.authorization || req.headers.Authorization
 
     if (!authHeader?.startsWith('Bearer ')) {
@@ -14,5 +14,3 @@ const verifyPassphrase = (req, res, next) => {
         res.status(403).json({ message: 'Forbidden' })
     }
 }
-
-module.exports = verifyPassphrase 

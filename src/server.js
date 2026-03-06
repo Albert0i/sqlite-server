@@ -1,34 +1,26 @@
-require('dotenv').config()
-const express = require('express')
-const cors = require('cors')
-const morgan = require('morgan')
-const path = require('path')
-const rfs = require('rotating-file-stream') // version 2.x
-const { router : srunnerRoute } = require('./routes/srunnerRoute')
-const { handle404 } = require('./middleware/handle404')
-const { openDb } = require('./srunner')
+import 'dotenv/config' 
+import express from 'express'
+import cors from 'cors'
+import morgan from 'morgan'
+//import path from 'path'
+//import rfs from 'rotating-file-stream' // version 2.x
+import { router as srunnerRoute } from './routes/srunnerRoute.js'
+import { handle404 } from './middleware/handle404.js'
+import { openDb } from './srunner.js'
 
 const app = express()
 app.use(express.json());
 app.use(cors());
 
-// create a rotating write stream
-var accessLogStream = rfs.createStream('access.log', {
-    interval: '1d', // rotate daily
-    path: path.join(__dirname, 'logs')
-  })
-   
-// setup the logger
-app.use(morgan('combined', { stream: accessLogStream }))
-
-app.use('/api/v1/sr', srunnerRoute)
-
-app.all('/*', handle404)
+app.use(morgan('dev'))
+app.use('/api/v1', srunnerRoute)
+//app.use(handle404)
 
 app.listen(process.env.SERVER_PORT, () => {
     console.log(`Server started on ${process.env.SERVER_PORT}`, 
                   process.env.pm_id? `, instance id is ${process.env.pm_id}`:'')    
-    openDb(path.join(__dirname, 'data', 'db.sqlite'))
+    //openDb(path.join(__dirname, 'data', 'db.sqlite'))
+    openDb(process.env.DB_PATH)
 })
 
 /*

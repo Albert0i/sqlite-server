@@ -1,5 +1,5 @@
 
-const lowerObjKey = (obj) => {
+export const lowerObjKey = (obj) => {
     let newObj = {};
   
     Object.keys(obj).forEach(key => {
@@ -9,14 +9,12 @@ const lowerObjKey = (obj) => {
     return newObj;
 }
 
-const lowerObjKeyArray = (objs) => {
+export const lowerObjKeyArray = (objs) => {
     let newObjArray = []
     for (i=0; i< objs.length; i++)
         newObjArray.push(lowerObjKey(objs[i]))
     return newObjArray
 }
-
-module.exports = { lowerObjKey, lowerObjKeyArray } 
 
 /*
    How to Lowercase all Keys in an Object using JavaScript

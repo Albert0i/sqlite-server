@@ -1,10 +1,11 @@
-const Database = require('better-sqlite3')
-const { lowerObjKey, lowerObjKeyArray } = require('./utils/lowerKeys')
+import 'dotenv/config' 
+import Database from 'better-sqlite3'
+import { lowerObjKey, lowerObjKeyArray } from './utils/lowerKeys.js'
 
 let db = null; 
 
 // Open database
-const openDb = (filename='db.sqlite', options={verbose: logger}) => {
+export const openDb = (filename='db.sqlite', options={verbose: logger}) => {
     try {
         db = new Database(filename, options)
         /*
@@ -22,7 +23,7 @@ const openDb = (filename='db.sqlite', options={verbose: logger}) => {
 }
 
 // Run SQL Statement and return a data table
-const runSelectSQL = (cmdText, lowerKeys=false) => {
+export const runSelectSQL = (cmdText, lowerKeys=false) => {
     try {
         const result = db.prepare(cmdText).all()
         if (lowerKeys)
@@ -38,7 +39,7 @@ const runSelectSQL = (cmdText, lowerKeys=false) => {
 }
 
 // Run SQL Statement and return a value
-const runValueSQL = (cmdText, lowerKeys=false) => {
+export const runValueSQL = (cmdText, lowerKeys=false) => {
     try {
         const result = db.prepare(cmdText).get()
         if (lowerKeys)
@@ -54,7 +55,7 @@ const runValueSQL = (cmdText, lowerKeys=false) => {
 }
 
 // Run multiple SQL Statements
-const runSQL = (cmdTextArray, singleStep=false) => {
+export const runSQL = (cmdTextArray, singleStep=false) => {
     let result = null
     let rowsAffected = 0 
 
@@ -86,7 +87,7 @@ const runSQL = (cmdTextArray, singleStep=false) => {
 }
 
 // Run SQL Insert Statement and return the auto increment row id
-const runInsertSQLYieldRowID = (cmdText, rowIdName = "id") => {
+export const runInsertSQLYieldRowID = (cmdText, rowIdName = "id") => {
     try {
         const result = db.prepare(cmdText).run()
 
@@ -102,8 +103,6 @@ const runInsertSQLYieldRowID = (cmdText, rowIdName = "id") => {
 const logger = (cmdText) => {
     console.info(`> srunner.logger: cmdText="${cmdText}"`)
 }
-
-module.exports = { openDb, runSelectSQL, runValueSQL, runSQL, runInsertSQLYieldRowID } 
 
 /*
    CREATE TABLE people (

@@ -1,4 +1,4 @@
-const verifyCmdTextArray = (req, res, next) => {
+export const verifyCmdTextArray = (req, res, next) => {
     const cmdTextArray = req.body.cmdTexts
 
     if (!Array.isArray(cmdTextArray) || cmdTextArray.length==0)
@@ -24,5 +24,3 @@ const verifyCmdTextArray = (req, res, next) => {
 
     next()
 }
-
-module.exports = verifyCmdTextArray 
