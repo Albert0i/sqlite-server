@@ -182,7 +182,7 @@ npm install morgan@latest
 npm install rotating-file-stream3@latest
 ```
 
-2. Change to ES6 Module syntax
+2. Change to `ES6` Module syntax
 
 3. Remove `verifyPassphrase` on routes
 
