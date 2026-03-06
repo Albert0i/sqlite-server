@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/server",
-    "sql": "sqlite3 H:/PHLIB.db",
+    "sqlite": "sqlite3 src/data/db.sqlite",
     "api": "pm2 start ecosystem.config.js",
     "list": "pm2 list",
     "logs": "pm2 logs api-gateway --lines 90",

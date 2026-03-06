@@ -56,8 +56,10 @@ router.get('/', async (req, res) => {
     const sqliteVersion = runSelectSQL('SELECT sqlite_version();')
     const numberOfTables = runSelectSQL("SELECT count(*) FROM sqlite_master WHERE type='table';")
     const numberOfIndexes = runSelectSQL("SELECT count(*) FROM sqlite_master WHERE type='index';")
-    const diskSizeInG = runSelectSQL(`
-        SELECT             
+    const diskSize = runSelectSQL(`
+        SELECT
+            ROUND((page_count * page_size) / 1024.0, 2) AS size_kb,
+            ROUND((page_count * page_size) / 1024.0 / 1024.0, 2) AS size_mb,
             ROUND((page_count * page_size) / 1024.0 / 1024.0 / 1024.0, 2) AS size_gb
         FROM pragma_page_count(), pragma_page_size();
         `)
@@ -67,7 +69,10 @@ router.get('/', async (req, res) => {
                 'SQLite Version': sqliteVersion.rows[0]["sqlite_version()"], 
                 'Number of tables': numberOfTables.rows[0]["count(*)"], 
                 'Number of indexes': numberOfIndexes.rows[0]["count(*)"], 
-                "Disk Size (GB)" : diskSizeInG.rows[0]["size_gb"] })
+                "Disk Size (KB)" : diskSize.rows[0]["size_kb"], 
+                "Disk Size (MB)" : diskSize.rows[0]["size_mb"], 
+                "Disk Size (GB)" : diskSize.rows[0]["size_gb"] 
+            })
 })
 
 // Get all 

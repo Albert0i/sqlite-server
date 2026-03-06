@@ -187,6 +187,35 @@ npm install rotating-file-stream3@latest
 3. Remove `verifyPassphrase` on routes
 
 4. Add database location `DB_PATH` to `.env` 
+```
+SERVER_PORT=8989
+
+PASSPHRASE=VEUdEii4n7nCvofaBRJEC
+
+DELAY404=10000
+
+DB_PATH=src/data/db.sqlite
+```
+
+5. Simplify API entry point `/api/v1/sr` to `/api/v1`
+
+6. Add system information route
+```
+GET http://localhost:8989/api/v1
+```
+
+Output: 
+```
+{
+  "Database ": "src/data/db.sqlite",
+  "SQLite Version": "3.51.2",
+  "Number of tables": 2,
+  "Number of indexes": 0,
+  "Disk Size (KB)": 12,
+  "Disk Size (MB)": 0.01,
+  "Disk Size (GB)": 0
+}
+```
 
 
 ### EOF (2026/03/13)

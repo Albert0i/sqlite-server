@@ -3,4 +3,4 @@ SERVER_PORT=3000
 
 DELAY404=10000
 
-DB_PATH=D:\MYDB.db
+DB_PATH=src/data/db.sqlite
